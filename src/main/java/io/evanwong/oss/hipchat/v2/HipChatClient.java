@@ -230,6 +230,14 @@ public class HipChatClient {
         return new PrivateMessageUserRequestBuilder(idOrEmail, message, accessToken, baseUrl, httpClient, executorService);
     }
 
+    public ViewRoomHistoryRequestBuilder prepareViewRoomHistoryRequestBuilder(String roomIdOrName, String accessToken) {
+        return new ViewRoomHistoryRequestBuilder(roomIdOrName, accessToken, baseUrl, httpClient, executorService);
+    }
+
+    public ViewRoomHistoryRequestBuilder prepareViewRoomHistoryRequestBuidler(String roomIdOrName) {
+        return prepareViewRoomHistoryRequestBuilder(roomIdOrName, defaultAccessToken);
+    }
+
     public void close() {
         log.info("Shutting down...");
         try {

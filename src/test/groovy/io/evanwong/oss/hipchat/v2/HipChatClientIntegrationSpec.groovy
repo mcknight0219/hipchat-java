@@ -162,4 +162,7 @@ class HipChatClientIntegrationSpec extends Specification {
         client.prepareDeleteRoomRequestBuilder(newname, token).build().execute().get()
     }
 
+    def "view room history should return list of room history item"() {
+    }
+
 }

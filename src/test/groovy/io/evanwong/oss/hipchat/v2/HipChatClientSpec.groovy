@@ -42,6 +42,28 @@ class HipChatClientSpec extends Specification {
         true            | null       | 456        | null
     }
 
+    def "prepareViewRoomHistoryRequestBuilder should create a ViewRoomHistoryRequest properly"() {
+        setup:
+        def builder = client.prepareViewRoomHistoryRequestBuidler(room)
+        builder.setMaxResults(maxResults)
+            .setReverse(reverse)
+        expansions.each {
+            builder = builder.addExpansion(it)
+        }
+
+        when:
+        def req = builder.build()
+
+        then:
+        req.maxResults == maxResults
+        req.reverse    == reverse
+
+
+        where:
+        room    | maxResults    | reverse   | expansions
+        "room1" | 200           | false     |["title1", "title2"]
+    }
+
     def "prepareSendRoomNotificationRequestBuilder should create a SendRoomNotificationRequest properly"() {
         setup:
         def builder = client.prepareSendRoomNotificationRequestBuilder(room, message)
