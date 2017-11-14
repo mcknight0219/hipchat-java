@@ -16,6 +16,7 @@ import org.slf4j.LoggerFactory;
 
 import java.io.IOException;
 import java.lang.reflect.ParameterizedType;
+import java.util.Collections;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Future;
@@ -34,7 +35,9 @@ public abstract class Request<T> {
     protected final ObjectWriter objectWriter = objectMapper.writer();
     protected final ObjectReader objectReader;
 
-    protected abstract Map<String, Object> toQueryMap();
+    protected Map<String, Object> toQueryMap() {
+        return Collections.emptyMap();
+    };
 
     protected abstract HttpResponse request() throws IOException;
 

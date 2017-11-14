@@ -14,11 +14,11 @@ public class File {
         this.url = url;
     }
 
-    public String getThumb_url() {
+    public String getThumbUrl() {
         return thumb_url;
     }
 
-    public void setThumb_url(String thumb_url) {
+    public void setThumbUrl(String thumb_url) {
         this.thumb_url = thumb_url;
     }
 
