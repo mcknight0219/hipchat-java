@@ -1,9 +1,11 @@
 package io.evanwong.oss.hipchat.v2
 
+import io.evanwong.oss.hipchat.v2.commons.GrantType
 import io.evanwong.oss.hipchat.v2.emoticons.EmoticonType
 import io.evanwong.oss.hipchat.v2.rooms.MessageColor
 import io.evanwong.oss.hipchat.v2.rooms.MessageFormat
 import io.evanwong.oss.hipchat.v2.rooms.Privacy
+
 import spock.lang.Specification
 
 class HipChatClientSpec extends Specification {
@@ -314,7 +316,7 @@ class HipChatClientSpec extends Specification {
 
     }
 
-    def "prepareGetSessionBuilder should create a GetSessionRequest properly"() {
+    def "prepareGetSessionRequestBuilder should create a GetSessionRequest properly"() {
         setup:
         def builder = client.prepareGetSessionRequestBuilder()
 
@@ -324,5 +326,22 @@ class HipChatClientSpec extends Specification {
         then:
         !req.toQueryMap()
         req.getPath() == "/oauth/token/$token"
+    }
+
+    def "prepareOauthTokenRequestBuilder should create a OauthTokenRequest properly"() {
+        setup:
+        def builder = client.prepareOauthTokenRequestBuilder(grantType, scope)
+
+        when:
+        builder.setUserName(userName)
+        def req = builder.build()
+
+        then:
+        req.userName == userName
+
+        where:
+        grantType                   | scope         | userName
+        GrantType.PASSWORD          | "view"        | "user1"
+        GrantType.CLIENT_CREDENTIALS| "edit, view"  | "user2"
     }
 }

@@ -1,8 +1,11 @@
 package io.evanwong.oss.hipchat.v2;
 
+import io.evanwong.oss.hipchat.v2.commons.GrantType;
 import io.evanwong.oss.hipchat.v2.emoticons.GetAllEmoticonsRequestBuilder;
 import io.evanwong.oss.hipchat.v2.emoticons.GetEmoticonRequestBuilder;
+import io.evanwong.oss.hipchat.v2.oauth.DeleteSessionRequestBuilder;
 import io.evanwong.oss.hipchat.v2.oauth.GetSessionRequestBuilder;
+import io.evanwong.oss.hipchat.v2.oauth.OauthTokenRequestBuilder;
 import io.evanwong.oss.hipchat.v2.rooms.*;
 import io.evanwong.oss.hipchat.v2.users.*;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -254,5 +257,17 @@ public class HipChatClient {
 
     public GetSessionRequestBuilder prepareGetSessionRequestBuilder(String accessToken) {
         return new GetSessionRequestBuilder(accessToken, baseUrl, httpClient, executorService);
+    }
+
+    public DeleteSessionRequestBuilder prepareDeleteSessionRequestBuilder() {
+        return new DeleteSessionRequestBuilder(defaultAccessToken, baseUrl, httpClient, executorService);
+    }
+
+    public DeleteSessionRequestBuilder prepareDeleteSessionRequestBuilder(String accessToken) {
+        return new DeleteSessionRequestBuilder(accessToken, baseUrl, httpClient, executorService);
+    }
+
+    public OauthTokenRequestBuilder prepareOauthTokenRequestBuilder(GrantType grantType, String scope) {
+        return new OauthTokenRequestBuilder(grantType, scope, baseUrl, httpClient, executorService);
     }
 }
